@@ -3,20 +3,29 @@
 apior - 基于`OpenResty`的`web api脚手架`, MVC简易框架.
 
 
-## 基础目录用途说明
+# Features
 
-- app/   # 应用的lua代码所在目录, mvc结构web api框架
-- lib/  # 自定义lua库所在目录
-- tplib/  # 第三方lua库所在目录
-- conf/  # `ngxin.conf`配置文件所在目录
-- html/  # 静态文件所在目录
-- logs/  # nginx日志文件所在目录
+* 不同于大多数其他`OR Web框架`只利用`Content执行阶段`, 本框架的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
+* 侵入式, 拿来直接作为项目目录改来用.
+* 没有把`SESSION/COOKIE/JWT`等功能封装进去, 可直接对接`API网关`来实现相关功能.
 
+
+## 框架基础目录用途说明
+
+`tree -L1 apior`
+```vim
+app/   # 应用的lua代码所在目录, mvc结构web api框架
+lib/  # 自定义lua库所在目录
+tplib/  # 第三方lua库所在目录
+conf/  # `ngxin.conf`配置文件所在目录
+html/  # 静态文件所在目录
+logs/  # nginx日志文件所在目录
+```
 
 *注: 之所以把第三方库拿出来放到`tplib`目录, 而不是保持通过`luarocks`或`opm`安装到的默认目录, 是为了方便迁移和维护.*
 
 
-## 应用目录的代码结构说明(MVC)
+## 应用目录(app)的代码结构说明(MVC)
 
 `tree app`
 ```
@@ -46,7 +55,7 @@ app
 └── waf.lua  # 应用的简易防火墙.
 ```
 
-通过了解该简易`web api`框架的各个组成部分, 可以非常方便拿来复用写其他应用业务api.
+通过了解该简易`web api`框架的各个组成部分, 可以非常方便拿来复用写其他应用`业务api`.
 
 
 对应MVC架构图如下:
@@ -71,9 +80,9 @@ app
     ----------------------------------
 
 
-# `require Lua模块`时的目录查找顺序
+# `conf/nginx.conf`
 
-见nginx.conf配置文件中的如下这段:
+`require Lua模块`时的目录查找顺序, 见`nginx.conf`配置文件中的如下这段:
 
 ```nginx
 init_by_lua_block {
@@ -89,14 +98,15 @@ init_by_lua_block {
 ```
 
 优先级为:
-应用自身lua模块>自定义lua库模块>第三方lua模块>官方lua模块
+
+`应用自身lua模块>自定义lua库模块>第三方lua模块>官方lua模块`
 
 
 # 运行项目
 
 ## Linux系统下
-`openresty -p /your-project-path`
+`openresty -p /yourpath/apior`
 
 ## MacOS系统下
-`openresty -p /your-project-path -c conf/nginx.conf`
+`openresty -p /yourpath/apior -c conf/nginx.conf`
 
