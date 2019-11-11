@@ -4,7 +4,7 @@ local ngx_re_split = require "ngx.re".split
 local table_nkeys = require "table.nkeys"
 
 -- 应用模块部分
-local ip_domain_model = require "models.orientdb.ip_domain"
+local example_model = require "models.orientdb.example_model"
 local response = require "response"
 local waf = require "waf"
 local cache = require "cache"
@@ -18,7 +18,7 @@ local common_cache = cache.get_common_cache()
 
 local _M = {}
 
-_M.name = "domain_graph"
+_M.name = "example_api"
 _M._VERSION = "0.1"
 
 
@@ -29,7 +29,8 @@ _M.access = function()
 end
 
 
--- 在OpenResty的content阶段, 执行该函数
+-- 在OpenResty的content阶段, 执行该函数.
+-- 在这里写业务API的主要逻辑部分.
 _M.content = function()
     --[==[
     local domain = ngx_var.arg_domain

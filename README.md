@@ -6,8 +6,10 @@ apior - 基于`OpenResty`的`Web API脚手架`, MVC简易框架.
 # Features
 
 * 不同于大多数其他`OpenResty Web框架`只利用OpenResty的`Content执行阶段`, 本框架的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
+* 封装`mlcache`三级缓存(`lrucache->sharedict->callback`), 方便对各种数据进行缓存.
 * 侵入式, Clone下来作为项目目录直接改来用.
 * 没有把`SESSION/COOKIE/JWT`等功能封装进去, 可直接对接`API网关`来实现相关功能.
+* 适用于中小型后端API项目.
 
 
 ## 框架基础目录用途说明
@@ -37,6 +39,7 @@ app
 │   ├── domain_graph.lua  # 某一个业务API文件.
 │   ├── ...
 ├── config.lua  # 应用的全局配置文件.
+├── cache.lua  # 缓存模块, 便捷的对数据进行缓存.
 ├── main.lua  # 整个应用的入口文件.
 ├── models  # 模型, 获取后端数据, MVC中的M.
 │   ├── influxdb  # InfluxDB模型模块所在目录.

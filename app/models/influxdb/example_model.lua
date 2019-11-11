@@ -6,7 +6,7 @@ local table_concat = table.concat
 
 
 local _M = {}
-_M.name = "cdn_bandwdith_model"
+_M.name = "example_model"
 _M._VERSION = "0.1"
 
 

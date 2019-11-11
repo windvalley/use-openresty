@@ -1,4 +1,4 @@
--- domain-graph api的前端展示
+-- example_api的前端展示, 仅用于测试, 可忽略这个文件
 
 local ngx = require "ngx"
 
@@ -15,7 +15,7 @@ local ngx_re_sub = ngx.re.sub
 
 local _M = {}
 
-_M.name = "front_domain_graph"
+_M.name = "front_example_api"
 _M._VERSION = "0.1"
 
 

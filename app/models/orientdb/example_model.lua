@@ -8,7 +8,7 @@ local table_insert = table.insert
 
 
 local _M = {}
-_M.name = "ip_domain_model"
+_M.name = "example_model"
 _M._VERSION = "0.1"
 
 
