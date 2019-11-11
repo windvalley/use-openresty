@@ -36,7 +36,7 @@ apior
 ```
 app
 ├── apis  # 业务API目录, MVC中的C. 每一个业务API都可以设置各自需要的OR执行阶段.
-│   ├── domain_graph.lua  # 某一个业务API文件.
+│   ├── example_api.lua  # 某一个业务API文件.
 │   ├── ...
 ├── config.lua  # 应用的全局配置文件.
 ├── cache.lua  # 缓存模块, 便捷的对数据进行缓存.
