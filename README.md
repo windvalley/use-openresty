@@ -1,26 +1,29 @@
 # Name
 
-apior - 基于`OpenResty`的`web api脚手架`, MVC简易框架.
+apior - 基于`OpenResty`的`Web API脚手架`, MVC简易框架.
 
 
 # Features
 
-* 不同于大多数其他`OR Web框架`只利用`Content执行阶段`, 本框架的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
-* 侵入式, 拿来直接作为项目目录改来用.
+* 不同于大多数其他`OpenResty Web框架`只利用OpenResty的`Content执行阶段`, 本框架的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
+* 侵入式, Clone下来作为项目目录直接改来用.
 * 没有把`SESSION/COOKIE/JWT`等功能封装进去, 可直接对接`API网关`来实现相关功能.
 
 
 ## 框架基础目录用途说明
 
-`tree -L1 apior`
+`tree -L 1 apior`
 ```vim
-app/   # 应用的lua代码所在目录, mvc结构web api框架
-lib/  # 自定义lua库所在目录
-tplib/  # 第三方lua库所在目录
-conf/  # `ngxin.conf`配置文件所在目录
-html/  # 静态文件所在目录
-logs/  # nginx日志文件所在目录
+apior
+├── README.md
+├── app  # 应用的Lua代码所在目录, MVC结构Web API框架
+├── conf  # ngxin.conf配置文件所在目录
+├── html  # 静态文件所在目录
+├── lib  # 自定义Lua库所在目录
+├── logs  # Nginx日志文件所在目录
+└── tplib  # 第三方Lua库所在目录
 ```
+
 
 *注: 之所以把第三方库拿出来放到`tplib`目录, 而不是保持通过`luarocks`或`opm`安装到的默认目录, 是为了方便迁移和维护.*
 
@@ -30,32 +33,30 @@ logs/  # nginx日志文件所在目录
 `tree app`
 ```
 app
-├── apis  # 业务api目录, MVC中的C. 每一个业务api都可以设置各自需要的OR执行阶段.
-│   ├── domain_graph.lua  # 某一个业务api文件.
+├── apis  # 业务API目录, MVC中的C. 每一个业务API都可以设置各自需要的OR执行阶段.
+│   ├── domain_graph.lua  # 某一个业务API文件.
 │   ├── ...
 ├── config.lua  # 应用的全局配置文件.
 ├── main.lua  # 整个应用的入口文件.
 ├── models  # 模型, 获取后端数据, MVC中的M.
-│   ├── influxdb  # influxdb模型模块所在目录.
+│   ├── influxdb  # InfluxDB模型模块所在目录.
 │   │   └── cdn_bandwidth.lua
-│   ├── influxdb.lua  # influxdb http api驱动.
+│   ├── influxdb.lua  # InfluxDB HTTP API驱动.
 │   ├── mysql
-│   │   └── test.lua
-│   ├── mysql.lua  # 对官方resty.mysql的封装
+│   ├── mysql.lua  # 对官方resty.mysql的封装.
 │   ├── orientdb
 │   │   └── ip_domain.lua
-│   ├── orientdb.lua  # orientdb http api驱动.
+│   ├── orientdb.lua  # OrientDB HTTP API驱动.
 │   └── redis.lua  # 对官方resty.redis的封装.
 ├── response.lua  # 响应模块, 模块化响应的输出格式.
 ├── router.lua  # 路由模块, 配置urlpath和业务api带宽的对应关系.
-├── views  # MVC中的V, 这里用于测试api json数据的展示效果.
+├── views  # MVC中的V, 这里用于测试API json数据的展示效果.
 │   ├── README.md
-│   ├── radial-tree-graph.html
 │   └── tree-graph.html
 └── waf.lua  # 应用的简易防火墙.
 ```
 
-通过了解该简易`web api`框架的各个组成部分, 可以非常方便拿来复用写其他应用`业务api`.
+通过了解该简易`Web API`框架的各个组成部分, 可以非常方便拿来复用写其他应用`业务API`.
 
 
 对应MVC架构图如下:
@@ -99,7 +100,7 @@ init_by_lua_block {
 
 优先级为:
 
-`应用自身lua模块>自定义lua库模块>第三方lua模块>官方lua模块`
+`应用自身Lua模块>自定义Lua库模块>第三方Lua模块>官方Lua模块`
 
 
 # 运行项目
