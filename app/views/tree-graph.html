@@ -1,0 +1,103 @@
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ECharts</title>
+
+    <!-- 引入 echarts.js 注意一定要是绝对路径,表示从当前nginx服务器的根路径(如果不通过root指令指定,默认是$prefix/html/)开始-->
+    <script type="text/javascript" src="/static/echarts.js"></script>
+    <!-- 引入jquery.js -->
+    <script type="text/javascript" src="/static/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小(宽和高)的Dom -->
+    <div id="main" style="width: 1200px;height:800px;"></div>
+
+    <script type="text/javascript">
+
+    var myChart = echarts.init(document.getElementById('main'));
+
+    myChart.showLoading();
+
+    myChart.setOption(option = {
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series: [
+            {
+                type: 'tree',
+
+                data: [],
+
+                top: '1%',
+                left: '7%',
+                bottom: '1%',
+                right: '20%',
+
+                symbolSize: 7,
+
+                label: {
+                    normal: {
+                        position: 'left',
+                        verticalAlign: 'middle',
+                        align: 'right',
+                        fontSize: 9
+                    }
+                },
+
+                leaves: {
+                    label: {
+                        normal: {
+                            position: 'right',
+                            verticalAlign: 'middle',
+                            align: 'left'
+                        }
+                    }
+                },
+
+                // 值为ture则节点展开为交互式, false则默认节点全部打开
+                expandAndCollapse: {{expand}},
+                initialTreeDepth: {{level}},
+                animationDuration: 550,
+                animationDurationUpdate: 750
+            }
+        ]
+    });
+
+    $.ajax({
+        type: "get",
+        async: true,  // 异步请求(同步请求将会锁住浏览器, 用户其他操作必须等待请求完成才可以执行)
+        url: "{{api}}",  // 后端api, {{api}}会被lua替换成实际的api地址
+        data: {},
+        dataType: "json",  // 返回数据形式为json
+        success: function(result) {
+            // 请求成功时执行该函数内容, result即为服务器返回的json对象
+            if (result) {
+                myChart.hideLoading();  // 隐藏加载动画
+
+                // 如果datum.collapsed=true, 则间隔展开子数据
+                echarts.util.each(result.data.children, function (datum, index) {
+                    index % 2 === 0 && (datum.collapsed = false);
+                });
+
+                myChart.setOption({  // 加载数据图表
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        type: 'tree',
+                        data: [result.data],
+                    }]
+                });
+
+            }
+        },
+        error: function(errorMsg) {
+            alert("图表请求数据失败!");
+            myChart.hideLoading();
+        }
+    })
+
+    </script>
+
+</body>
+</html>
