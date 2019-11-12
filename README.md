@@ -43,12 +43,12 @@ app
 ├── main.lua  # 整个应用的入口文件.
 ├── models  # 模型, 获取后端数据, MVC中的M.
 │   ├── influxdb  # InfluxDB模型模块所在目录.
-│   │   └── cdn_bandwidth.lua
+│   │   └── example.lua
 │   ├── influxdb.lua  # InfluxDB HTTP API驱动.
 │   ├── mysql
 │   ├── mysql.lua  # 对官方resty.mysql的封装.
 │   ├── orientdb
-│   │   └── ip_domain.lua
+│   │   └── example.lua
 │   ├── orientdb.lua  # OrientDB HTTP API驱动.
 │   └── redis.lua  # 对官方resty.redis的封装.
 ├── response.lua  # 响应模块, 模块化响应的输出格式.
