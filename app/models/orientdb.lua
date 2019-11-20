@@ -17,14 +17,14 @@ _M._VERSION = "0.1"
 _M.name = "orientdb"
 
 
-local host = config.orientdb_conf["host"]
-local port = config.orientdb_conf["port"]
+local host = config.orientdb_conf["host"] or "127.0.0.1"
+local port = config.orientdb_conf["port"] or 2480
 local db = config.orientdb_conf["db"]
-local user = config.orientdb_conf["user"]
-local password = config.orientdb_conf["password"]
-local timeout = config.orientdb_conf["timeout"]
-local keepalive_timeout = config.orientdb_conf["keepalive_timeout"]
-local keepalive_pool = config.orientdb_conf["keepalive_pool"]
+local user = config.orientdb_conf["user"] or ""
+local password = config.orientdb_conf["password"] or ""
+local timeout = config.orientdb_conf["timeout"] or 2000
+local keepalive_timeout = config.orientdb_conf["keepalive_timeout"] or 10000
+local keepalive_pool = config.orientdb_conf["keepalive_pool"] or 50
 
 
 -- 查询orientdb的http api前缀

@@ -13,14 +13,14 @@ _M._VERSION = "0.1"
 _M.name = "influxdb"
 
 
-local host = config.influxdb_conf["host"]
-local port = config.influxdb_conf["port"]
+local host = config.influxdb_conf["host"] or "127.0.0.1"
+local port = config.influxdb_conf["port"] or 8086
 local db = config.influxdb_conf["db"]
-local user = config.influxdb_conf["user"]
-local password = config.influxdb_conf["password"]
-local timeout = config.influxdb_conf["timeout"]
-local keepalive_timeout = config.influxdb_conf["keepalive_timeout"]
-local keepalive_pool = config.influxdb_conf["keepalive_pool"]
+local user = config.influxdb_conf["user"] or ""
+local password = config.influxdb_conf["password"] or ""
+local timeout = config.influxdb_conf["timeout"] or 2000
+local keepalive_timeout = config.influxdb_conf["keepalive_timeout"] or 10000
+local keepalive_pool = config.influxdb_conf["keepalive_pool"] or 50
 
 
 -- 查询influxdb的http api前缀
