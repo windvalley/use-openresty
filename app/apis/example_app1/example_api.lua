@@ -4,7 +4,7 @@ local ngx_re_split = require "ngx.re".split
 local table_nkeys = require "table.nkeys"
 
 -- 应用模块部分
-local example_model = require "models.orientdb.example_model"
+local example_model = require "models.orientdb.example_ip_domain"
 local response = require "response"
 local waf = require "waf"
 local cache = require "cache"
@@ -38,7 +38,7 @@ _M.content = function()
         response.arg_err()
     end
 
-    -- callback function
+    -- callback function, 从后端数据库获取数据.
     local get_resp_data = function()
         -- return data, nil, 300  -- 数据, 错误信息, 自定义缓存时间
         return data
@@ -47,10 +47,12 @@ _M.content = function()
     -- 如果update参数值为"1", 则主动更新缓存
     local update = ngx_var.arg_update
     if update == "1" then
+        -- 先更新缓存再响应用户
         response.update_say(fqdn, get_resp_data)
         return
     end
 
+    -- 如果数据没过期, 使用缓存数据响应用户
     response.cache_say(fqdn, get_resp_data)
     ]==]
 end

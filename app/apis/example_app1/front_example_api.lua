@@ -1,4 +1,4 @@
--- example_api的前端展示, 仅用于测试, 可忽略这个文件
+-- example_api的前端展示, 仅用于测试接口数据的展示, 可忽略这个文件
 
 local ngx = require "ngx"
 
@@ -49,7 +49,7 @@ _M.content = function()
         level = 5
     end
 
-    local api = [[/orientdb/domain-graph/?domain=]] .. domain
+    local api = [[/api/app1/example-api/?domain=]] .. domain
     local update = ngx_var.arg_update
     if update == "1" then
         api = api .. "&update=1"
