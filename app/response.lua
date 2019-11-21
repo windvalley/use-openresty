@@ -163,10 +163,18 @@ _M.input_err = function(input)
 end
 
 
+-- 用户上传的数据错误
+_M.data_err = function()
+    err_resp.code = 605 or "data:data_error"
+    err_resp.msg = "upload data content error."
+    say_err(err_resp)
+end
+
+
 -- 内部错误: 查询db出现错误
 _M.db_err = function(err, sql)
     ngx_log(ngx_ERR, "error: ", err, " sql: ", sql)
-    err_resp.code = 605 or "internal:db_error"
+    err_resp.code = 606 or "internal:db_error"
     err_resp.msg = "internal err: db error."
     say_err(err_resp)
 end
@@ -175,7 +183,7 @@ end
 -- 内部错误: 缓存错误
 _M.cache_err = function(err)
     ngx_log(ngx_ERR, "error: ", err)
-    err_resp.code = 606 or "internal:cache_error"
+    err_resp.code = 607 or "internal:cache_error"
     err_resp.msg = "internal err: cache error."
     say_err(err_resp)
 end
@@ -184,7 +192,7 @@ end
 -- 内部错误: 不明确的错误
 _M.internal_err = function(err)
     ngx_log(ngx_ERR, "error: ", err)
-    err_resp.code = 607 or "internal:unkown_error"
+    err_resp.code = 608 or "internal:unkown_error"
     err_resp.msg = "internal err: unknown."
     say_err(err_resp)
 end
