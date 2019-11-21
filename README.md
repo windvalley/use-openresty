@@ -9,6 +9,7 @@ apior - 基于`OpenResty`的`Web API脚手架`, MVC简易框架.
   使用本框架开发的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
 * 封装`mlcache`三级缓存(`lrucache->sharedict->callback`), 方便对各种数据进行缓存.
 * 侵入式框架, 直接`git clone`下来作为项目目录改来用, 充分利用框架提供的代码.
+* 快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
 * 没有把`SESSION/COOKIE/JWT`等功能封装进去, 可直接对接`API网关`来实现相关功能.
 * 适用于中小型后端`Web API`项目.
 
@@ -52,7 +53,7 @@ app
 │   ├── orientdb.lua  # OrientDB HTTP API驱动.
 │   └── redis.lua  # 对官方resty.redis的封装.
 ├── response.lua  # 响应模块, 模块化响应的输出格式.
-├── router.lua  # 路由模块, 配置urlpath和业务api带宽的对应关系.
+├── router.⇵lua  # 路由模块, 配置urlpath和业务api带宽的对应关系.
 ├── views  # MVC中的V, 这里用于测试API json数据的展示效果.
 │   └── tree-graph.html
 └── waf.lua  # 应用的简易防火墙.
@@ -65,19 +66,19 @@ app
 对应MVC架构图如下:
 
                    用户
-                    ↕️
+                    ⇵
            --------------------
            | 控制器Controller |
            |   router.lua     |
-           |      ⬇️           |
+           |       ↓          |
            |   apis/*.lua     |
            --------------------
-              ↙️            ↘️
+              ↙︎            ↘︎
     --------------       --------------
     |  模型Model |       |  视图View  |
     |models/*.lua|       |views/*.html|
     --------------       --------------
-          ⬇️
+          ⇵
     ----------------------------------
     |        各种数据库              |
     |MySQL/Redis/InfluxDB/OrientDB...|
@@ -138,7 +139,7 @@ location /static/ {
 
 在这里配置路由: `app/router.lua`.
 
-在这里写`业务API`: `app/apis/`, 里面有相应的示例供参考.
+在这里写`业务API`: `app/apis/`, 里面有相应的简单示例供参考.
 
 
 # 运行项目
