@@ -64,7 +64,7 @@ end
 
 
 -- 主动更新缓存的响应
-_M.update_say = function(cache_key, callback)
+_M.update_say = function(cache_key, callback, ...)
     local ttl, err, value, ok, data
 
     ttl, err, value = resp_cache:peek(cache_key)
@@ -87,7 +87,7 @@ _M.update_say = function(cache_key, callback)
         return _M.internal_err(err)
     end
 
-    data, err = resp_cache:get(cache_key, nil, callback)
+    data, err = resp_cache:get(cache_key, nil, callback, ...)
     if err then
         ngx_log(ngx_ERR, "could not retrieve data: ", err)
         return _M.internal_err(err)
@@ -97,8 +97,9 @@ _M.update_say = function(cache_key, callback)
 end
 
 
--- 正常使用缓存的响应
-_M.cache_say = function(cache_key, callback)
+-- 正常使用缓存的响应.
+-- 参数...表示callback函数的参数, 可以是0个、1个或多个.
+_M.cache_say = function(cache_key, callback, ...)
     local ok, err, data
 
     -- 因为我们前面使用了缓存key删除机制delete, 所以这里需要先update(),
@@ -108,7 +109,7 @@ _M.cache_say = function(cache_key, callback)
         ngx_log(ngx_ERR, "failed to poll eviction events: ", err)
     end
 
-    data, err = resp_cache:get(cache_key, nil, callback)
+    data, err = resp_cache:get(cache_key, nil, callback, ...)
     if err then
         ngx_log(ngx_ERR, "could not retrieve data: ", err)
         return _M.internal_err(err)
