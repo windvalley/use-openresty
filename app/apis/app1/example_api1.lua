@@ -18,7 +18,7 @@ local common_cache = cache.get_common_cache()
 
 local _M = {}
 
-_M.name = "example_api"
+_M.name = "example_api1"
 _M._VERSION = "0.1"
 
 

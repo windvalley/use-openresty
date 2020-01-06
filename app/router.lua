@@ -1,7 +1,6 @@
 -- 路由url对应的业务接口模块
-local app1_example_api = require "apis.example_app1.example_api"
-local app1_front_example_api = require "apis.example_app1.front_example_api"
-local app2_example_api = require "apis.example_app2.example_api"
+local app1_examples_api1 = require "apis.app1.example_api1"
+local app1_examples_api2 = require "apis.app1.example_api2"
 
 
 local _M = {}
@@ -11,14 +10,12 @@ _M._VERSION = "0.1"
 
 
 -- 路由.
--- 注意这里写的是url path, 不要写url参数;
--- 另外, url path 结尾一定要加/, 防止匹配错误.
+-- 规范起见, url路径结尾不要带/, 用户请求url如果结尾有/, 服务器会自动去掉/.
 local url_path = {
     -- app1
-    ["/api/app1/example-api/"] = app1_example_api,
-    ["/api/app1/front/example-api/"] = app1_front_example_api,
-    -- app2
-    ["/api/app2/example-api/"] = app2_example_api,
+    ["/v1/app1/examples"] = app1_examples_api1,
+    -- 路径参数情况的写法
+    ["/v1/app1/examples/[0-9]+"] = app1_examples_api2,
 }
 
 
