@@ -35,8 +35,8 @@ _M._VERSION = "0.1"
 
 -- 正确的响应table
 local ok_resp = {
-    code = 200,
-    msg = "ok",
+    code = "OK",
+    msg = "OK",
     data = {},
 }
 
@@ -119,12 +119,13 @@ _M.cache_say = function(cache_key, callback, ...)
 end
 
 
+-- 下面是错误响应的各种情况, 错误码使用英文代替数字来表示, 易读好维护.
+
+
 -- 请求的url不存在
 _M.url_err = function(url)
-    -- or前为使用数字作为错误码, or后为使用字符串作为错误码,
-    -- 在这里当然 or 后面的永远不会被执行, 这么写只是提示一下,
-    -- 如果团队规范允许, 使用字符串(大类:子类)作为错误码的方式可能更人性化一点.
-    err_resp.code = 600 or "url:not_found"
+    -- 使用字符串(大类:子类)作为错误码.
+    err_resp.code = "url:not_found"
     err_resp.msg = "url err: " .. url .. " not found."
     say_err(err_resp)
 end
@@ -132,7 +133,7 @@ end
 
 -- url参数错误
 _M.arg_err = function()
-    err_resp.code = 601 or "url:arg_error"
+    err_resp.code = "url:arg_error"
     err_resp.msg = "args err: no args or args value error."
     say_err(err_resp)
 end
@@ -140,7 +141,7 @@ end
 
 -- 请求方法不被允许
 _M.method_err = function(method, allow_method_table)
-    err_resp.code = 602 or "method:not_allowed"
+    err_resp.code = "method:not_allowed"
     err_resp.msg = "method err: " .. method
                    .. " is not allowed, and allow methods: "
                    .. table_concat(allow_method_table, ",")
@@ -150,7 +151,7 @@ end
 
 -- 鉴权失败
 _M.auth_err = function()
-    err_resp.code = 603 or "auth:auth_failed"
+    err_resp.code = "auth:auth_failed"
     err_resp.msg = "authenticate failed."
     say_err(err_resp)
 end
@@ -158,7 +159,7 @@ end
 
 -- 用户查询的信息在db中不存在
 _M.input_err = function(input)
-    err_resp.code = 604 or "input:not_found"
+    err_resp.code = "input:not_found"
     err_resp.msg = "input err, no such value: " .. input
     say_err(err_resp)
 end
@@ -166,7 +167,7 @@ end
 
 -- 用户上传的数据错误
 _M.data_err = function()
-    err_resp.code = 605 or "data:data_error"
+    err_resp.code = "data:post_data_error"
     err_resp.msg = "upload data content error."
     say_err(err_resp)
 end
@@ -175,7 +176,7 @@ end
 -- 内部错误: 查询db出现错误
 _M.db_err = function(err, sql)
     ngx_log(ngx_ERR, "error: ", err, " sql: ", sql)
-    err_resp.code = 606 or "internal:db_error"
+    err_resp.code = "internal:db_error"
     err_resp.msg = "internal err: db error."
     say_err(err_resp)
 end
@@ -184,7 +185,7 @@ end
 -- 内部错误: 缓存错误
 _M.cache_err = function(err)
     ngx_log(ngx_ERR, "error: ", err)
-    err_resp.code = 607 or "internal:cache_error"
+    err_resp.code = "internal:cache_error"
     err_resp.msg = "internal err: cache error."
     say_err(err_resp)
 end
@@ -193,7 +194,7 @@ end
 -- 内部错误: 不明确的错误
 _M.internal_err = function(err)
     ngx_log(ngx_ERR, "error: ", err)
-    err_resp.code = 608 or "internal:unkown_error"
+    err_resp.code = "internal:unkown_error"
     err_resp.msg = "internal err: unknown."
     say_err(err_resp)
 end
