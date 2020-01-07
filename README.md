@@ -1,18 +1,22 @@
 # Name
 
-apior - 基于`OpenResty`的`Web API脚手架`, MVC简易框架.
+apior - 基于`OpenResty`的`Web API脚手架`, `MVC`简易框架.
 
 
 # Features
 
 * 不同于大多数其他`OpenResty Web框架`只利用OpenResty的`Content执行阶段`,
   使用本框架开发的每一个`业务API`都可以使用各自希望用到的`OpenResty执行阶段`.
-* 封装`mlcache`三级缓存(`lrucache->sharedict->callback`), 方便对各种数据进行缓存.
-* 侵入式框架, 直接`git clone`下来作为项目目录改来用, 充分利用框架提供的代码.
-* 快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
-* 没有把`SESSION/COOKIE/JWT`等功能封装进去, 可直接对接`API网关`来实现相关功能.
-* 适用于中小型后端`Web API`项目.
-
+* 简易的路由配置, 自动重定向去除请求的尾部`/`.
+* 封装常用的数据库调用模型: `Redis`、`MySQL`、`InfluxDB`、`OrientDB`.
+* 封装`mlcache`三级缓存(`lrucache->sharedict->callback`),
+  方便对响应数据或碎片数据进行缓存.
+* 集成基础的`waf`功能: 白名单、请求方法过滤、请求并发数限制等.
+* 侵入式框架, 建议直接作为项目根目录使用, 充分利用框架提供的代码.
+* 可快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
+* 未实现`Session/Cookie/JWT`功能, 建议接入`API网关`实现相关功能.
+* 未实现`Template`模版功能, 本框架只为写`Web API`而生.
+* 适用于编写高并发的中小型`Web API`项目.
 
 ## 框架基础目录用途说明
 
@@ -37,8 +41,8 @@ apior
 ```
 app
 ├── apis  # 业务API目录, MVC中的C. 每一个业务API都可以设置各自需要的OR执行阶段.
-│   ├── example_app1
-|       ├── example_api.lua  # 某一个应用的业务API文件.
+│   ├── app1
+|       ├── example_api1.lua  # 某一个应用的业务API文件.
 |       ...
 │   ├── ...
 ├── config.lua  # 应用的全局配置文件.
@@ -53,7 +57,7 @@ app
 │   ├── orientdb.lua  # OrientDB HTTP API驱动.
 │   └── redis.lua  # 对官方resty.redis的封装.
 ├── response.lua  # 响应模块, 模块化响应的输出格式.
-├── router.⇵lua  # 路由模块, 配置urlpath和业务api带宽的对应关系.
+├── router.⇵lua  # 路由模块, 配置urlpath和业务api的对应关系.
 ├── views  # MVC中的V, 这里用于测试API json数据的展示效果.
 │   └── tree-graph.html
 └── waf.lua  # 应用的简易防火墙.
@@ -65,7 +69,7 @@ app
 
 对应MVC架构图如下:
 
-                   Users
+                  Users
                     ⇵
            --------------------
            |    Controller    |
@@ -148,8 +152,10 @@ location /static/ {
 # 运行项目
 
 ## Linux系统下
+
 `openresty -p /yourpath/apior`
 
 ## MacOS系统下
+
 `openresty -p /yourpath/apior -c conf/nginx.conf`
 
