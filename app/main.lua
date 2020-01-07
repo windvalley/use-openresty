@@ -24,9 +24,7 @@ _M._VERSION = "0.1"
 
 setmetatable(_M, { __index = function(self, handler_name)
     local func = function()
-        -- 去掉请求url结尾的/(如果有)
-        local request_url_path, _, _ = ngx.re.sub(ngx_var.uri, "/$", "")
-
+        local request_url_path = ngx_var.uri
         -- 路由匹配、webapi程序执行
         for router_path, api in pairs(router) do
             local router_path_re = [[^]] .. router_path .. [[$]]
