@@ -10,8 +10,8 @@ _M._VERSION = "0.1"
 
 
 -- 路由.
--- 规范起见, url路径结尾不要带/,
--- Nginx已配置成如果用户请求的uri结尾有/, 将自动301重定向去掉/.
+-- 规范起见, 下面的url path路径结尾不要带/,
+-- Nginx已配置为如果用户请求的uri结尾有/, 将自动301重定向去掉/.
 local url_path = {
     -- app1
     ["/v1/app1/examples"] = app1_examples_api1,
