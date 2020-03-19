@@ -3,6 +3,7 @@ local ngx = require "ngx"
 
 -- 自定义库模块
 local http = require "http"
+local urlencode = require "utils".urlencode
 
 -- 应用模块
 local config = require "config"
@@ -38,6 +39,7 @@ if user ~= "" and password ~= "" then
     local basic_auth = ngx_encode_base64(auth_str)
     headers["Authorization"] = "Basic " .. basic_auth
 end
+headers["Content-Type"] = "application/json;charset=utf8"
 
 
 -- 查询orientdb, 返回result table
@@ -46,6 +48,7 @@ _M.query = function(sql)
     print(n .. "***************************: " .. sql)
     n = n + 1
 
+    sql = urlencode(sql) -- 防止中文字符乱码造成查询orientdb返回空结果.
     local query_api = orientdb_base_api .. sql
 
     local res, err = http.request(query_api,

@@ -120,12 +120,29 @@ local table_top_slice = function(table_name, top_number)
 end
 
 
+-- 对URL进行编码
+local function urlencode(s)
+    s = string.gsub(s, "([^%w%.%- ])",
+            function(c) return string.format("%%%02X", string.byte(c)) end)
+    return string.gsub(s, " ", "+")
+end
+
+
+-- 对URL进行解码
+function urldecode(s)
+    s = string.gsub(s, '%%(%x%x)',
+            function(h) return string.char(tonumber(h, 16)) end)
+    return s
+end
+
+
 _M.loadfile_to_table = loadfile_to_table
 _M.loadfile_to_ram = loadfile_to_ram
 _M.perf_time = perf_time
 _M.ip_search = ip_search
 _M.item_if_in_table = item_if_in_table
 _M.table_top_slice = table_top_slice
-
+_M.urlencode = urlencode
+_M.urldecode = urldecode
 
 return _M
