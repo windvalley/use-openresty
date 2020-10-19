@@ -129,7 +129,7 @@ end
 
 
 -- 对URL进行解码
-function urldecode(s)
+local function urldecode(s)
     s = string.gsub(s, '%%(%x%x)',
             function(h) return string.char(tonumber(h, 16)) end)
     return s
