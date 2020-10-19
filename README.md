@@ -2,7 +2,7 @@
 
 `use-openresty` - 基于`OpenResty`的`Web API`脚手架.
 
-# Features
+## Features
 
 * 不同于大多数其他`OpenResty Web`框架只利用`OpenResty`的`Content`执行阶段,
   使用本框架开发的每一个业务`API`都可以使用各自希望用到的`OpenResty`执行阶段.
@@ -13,16 +13,15 @@
 * 集成基础的`waf`功能: 白名单、请求方法过滤、请求并发数限制等.
 * 侵入式框架, 建议直接作为项目根目录使用, 充分利用框架提供的代码.
 * 可快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
-* 未实现`Session/Cookie/JWT`功能, 可接入`API`网关实现相关功能.
-* 未实现`Template`模版功能, 本项目只为写`Web API`而生.
 * 适用于编写高性能高并发的中小型`Web API`项目.
 
-# Architecture
+## Architecture
 
-## Global structure
+### Global structure
 
 `tree -L 1 use-openresty`
-```
+
+```txt
 use-openresty
 ├── README.md
 ├── app  # 具体应用的Lua代码所在目录, MVC结构Web API框架
@@ -37,11 +36,11 @@ use-openresty
 > 之所以把第三方库拿出来放到`tplib`目录,
 > 而不是保持通过`luarocks`或`opm`安装到的默认目录, 是为了方便迁移和维护.
 
-
-## App structure
+### App structure
 
 `tree app`
-```
+
+```txt
 app
 ├── apis  # 业务API目录, MVC中的C. 每一个业务API都可以设置各自需要的OR执行阶段.
 │   ├── app1
@@ -69,9 +68,9 @@ app
 > 通过了解该简易`Web API`框架的各个组成部分,
 > 可以非常方便地拿来复用写项目应用的业务`API`.
 
-## Simple arch map
+### Simple arch map
 
-```
+```txt
                   Users
                     ⇵
            --------------------
@@ -95,11 +94,11 @@ app
     -------------------------------------
 ```
 
-# Configure
+## Configure
 
 `conf/nginx.conf`的配置.
 
-## Lua module search order
+### Lua module search order
 
 `require Lua模块`时的目录查找顺序, 见`nginx.conf`配置文件中的如下这段:
 
@@ -123,6 +122,7 @@ init_by_lua_block {
 ## `location` part
 
 我们开发的业务`API`用到了多少执行阶段就在这里写多少:
+
 ```nginx
 location / {
     rewrite_by_lua_block {
@@ -140,26 +140,26 @@ location / {
 ```
 
 静态文件的路由在这里单独指定, 不要和`app/router.lua`掺和在一起:
+
 ```nginx
 location /static/ {
     root html;
 }
 ```
 
-# Begin to develop Web API
+## Begin to develop Web API
 
 在这里配置路由: `app/router.lua`
 
 在这里写`Web API`: `app/apis/`, 里面有相应的简单示例供参考.
 
+## Deployment
 
-# Deployment
-
-## Linux
+### Linux
 
 `openresty -p /yourpath/use-openresty`
 
-## MacOS
+### MacOS
 
 `openresty -p /yourpath/use-openresty -c conf/nginx.conf`
 
