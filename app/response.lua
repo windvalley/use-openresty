@@ -1,12 +1,12 @@
 --[==[
 * 返回的状态码说明:
     * `OK`: 请求成功.
-    * `url:not_found`: 请求的URL不存在.
-    * `url:arg_error`: 参数错误.
-    * `method:not_allowed`: 请求方法不被允许.
+    * `auth:method_not_allowed`: 请求方法不被允许.
     * `auth:auth_failed`: 鉴权失败.
-    * `input:not_found`: 输入错误, 查询的标的在系统中不存在.
-    * `data:post_data_error`: 上传的数据错误.
+    * `validate:url_not_found`: 请求的URL不存在.
+    * `validate:url_arg_error`: 参数错误.
+    * `validate:post_data_error`: 上传的数据错误.
+    * `resource:not_found`: 查询的资源在系统中不存在.
     * `internal:db_error`: 内部错误之数据库错误.
     * `internal:cache_error`: 内部错误之缓存错误.
     * `internal:unkown_error`: 内部错误之不明确的错误.
@@ -125,7 +125,7 @@ end
 -- 请求的url不存在
 _M.url_err = function(url)
     -- 使用字符串(大类:子类)作为错误码.
-    err_resp.code = "url:not_found"
+    err_resp.code = "validate:url_not_found"
     err_resp.msg = "url err: " .. url .. " not found."
     say_err(err_resp)
 end
@@ -133,7 +133,7 @@ end
 
 -- url参数错误
 _M.arg_err = function()
-    err_resp.code = "url:arg_error"
+    err_resp.code = "validate:url_arg_error"
     err_resp.msg = "args err: no args or args value error."
     say_err(err_resp)
 end
@@ -141,7 +141,7 @@ end
 
 -- 请求方法不被允许
 _M.method_err = function(method, allow_method_table)
-    err_resp.code = "method:not_allowed"
+    err_resp.code = "auth:method_not_allowed"
     err_resp.msg = "method err: " .. method
                    .. " is not allowed, and allow methods: "
                    .. table_concat(allow_method_table, ",")
@@ -158,16 +158,16 @@ end
 
 
 -- 用户查询的信息在db中不存在
-_M.input_err = function(input)
-    err_resp.code = "input:not_found"
-    err_resp.msg = "input err, no such value: " .. input
+_M.resource_err = function(resource)
+    err_resp.code = "resource:not_found"
+    err_resp.msg = "resource not found: " .. resource
     say_err(err_resp)
 end
 
 
 -- 用户上传的数据错误
 _M.data_err = function()
-    err_resp.code = "data:post_data_error"
+    err_resp.code = "validate:post_data_error"
     err_resp.msg = "upload data content error."
     say_err(err_resp)
 end
