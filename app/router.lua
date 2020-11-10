@@ -1,6 +1,7 @@
 -- 路由url对应的业务接口模块
 local app1_examples_api1 = require "apis.app1.example_api1"
 local app1_examples_api2 = require "apis.app1.example_api2"
+local test = require "apis.test"
 
 
 local _M = {}
@@ -17,6 +18,8 @@ local url_path = {
     ["/v1/app1/examples"] = app1_examples_api1,
     -- 有路径参数情况的写法
     ["/v1/app1/examples/[0-9]+"] = app1_examples_api2,
+    -- Just used to temporarily test openresty api functions
+    ["/test"] = test,
 }
 
 
