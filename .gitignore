@@ -6,3 +6,4 @@ fastcgi_temp/
 scgi_temp/
 *.swp
 logs/*.log
+logs/nginx.pid

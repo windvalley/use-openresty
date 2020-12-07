@@ -11,6 +11,7 @@
 * Wraps common database models: `Redis`, `MySQL`, `InfluxDB`, `OrientDB`.
 * Wrapping `mlcache` three-level cache (`lrucache->sharedict->callback`) to facilitate caching of response data or process fragment data.
 * Integrate basic `waf` functions: whitelist, request method filtering, request concurrency limit, etc.
+* Support live reload, when the `*.conf` or `*.lua` file changes, it will automatically reload the `OpenResty`.
 * Intrusive framework, recommended to be used directly as the root directory of the project, taking full advantage of the code provided by the framework.
 * You can quickly start writing new project logic, so as not to write duplicate codes, and quickly deliver high-performance and high-quality applications.
 * Suitable for writing high-performance and high-concurrency small and medium-sized `Web API` projects.

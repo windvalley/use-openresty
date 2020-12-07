@@ -1,6 +1,8 @@
 -- Used to temporarily test openresty api functions
 
 local ngx = require "ngx"
+local cjson = require "cjson"
+local table = require "table"
 
 local loadfile_to_ram = require "utils".loadfile_to_ram
 
@@ -24,7 +26,7 @@ end
 
 
 _M.content = function()
-    ngx.say(ngx_var.uri)
+    ngx.say("Hello OpenResty!")
 end
 
 
