@@ -158,11 +158,39 @@ location /static/ {
 
 ### Linux
 
-`openresty -p /yourpath/use-openresty`
+```bash
+openresty -p /yourpath/use-openresty
+```
 
 ### MacOS
 
-`openresty -p /yourpath/use-openresty -c conf/nginx.conf`
+```bash
+openresty -p /yourpath/use-openresty -c conf/nginx.conf
+```
+
+### Docker
+
+使用项目提供的`Dockerfile`文件:
+
+```bash
+cd use-openresty/
+
+# 通过Dockerfile文件创建项目的容器镜像
+docker build -t use-openresty .
+
+# 运行容器, 开发环境下将项目路径挂载到容器中, 使容器中的项目保持最新
+docker run --rm --name useor -v $PWD:/app -p80:80 -d use-openresty
+```
+
+或者直接运行:
+
+```bash
+docker run --rm --name useor \
+    -v $PWD:/app \
+    -p 80:80 \
+    -d openresty/openresty:alpine \
+    /usr/local/openresty/bin/openresty -p /app -c conf/nginx.conf -g "daemon off;"
+```
 
 ### 测试效果
 

@@ -156,11 +156,37 @@ Write Web API here: `app/apis/`, there are corresponding simple examples for ref
 
 ### Linux
 
-`openresty -p /yourpath/use-openresty`
+```bash
+openresty -p /yourpath/use-openresty
+```
 
 ### MacOS
 
-`openresty -p /yourpath/use-openresty -c conf/nginx.conf`
+```bash
+openresty -p /yourpath/use-openresty -c conf/nginx.conf
+```
+
+### Docker
+
+Use the `Dockerfile` provided by this project:
+
+```bash
+cd use-openresty/
+
+docker build -t use-openresty .
+
+docker run --rm --name useor -v $PWD:/app -p80:80 -d use-openresty
+```
+
+Or run the following command line directly:
+
+```bash
+docker run --rm --name useor \
+    -v $PWD:/app \
+    -p 80:80 \
+    -d openresty/openresty:alpine \
+    /usr/local/openresty/bin/openresty -p /app -c conf/nginx.conf -g "daemon off;"
+```
 
 ### Test
 
