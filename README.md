@@ -162,6 +162,18 @@ Write Web API here: `app/apis/`, there are corresponding simple examples for ref
 
 `openresty -p /yourpath/use-openresty -c conf/nginx.conf`
 
+### Test
+
+http://localhost/
+
+http://localhost/static/test.html
+
+http://localhost/test
+
+http://localhost/v1/app1/examples
+
+http://localhost/v1/app1/examples/1
+
 ## License
 
 This project is under the MIT License. See the [LICENSE](LICENSE) file for the full license text.

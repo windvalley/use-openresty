@@ -14,12 +14,12 @@ _M._VERSION = "0.1"
 -- 规范起见, 下面的url path路径结尾不要带/,
 -- Nginx已配置为如果用户请求的uri结尾有/, 将自动301重定向去掉/.
 local url_path = {
+    -- Just used to temporarily test openresty api functions
+    ["/test"] = test,
     -- app1
     ["/v1/app1/examples"] = app1_examples_api1,
     -- 有路径参数情况的写法
     ["/v1/app1/examples/[0-9]+"] = app1_examples_api2,
-    -- Just used to temporarily test openresty api functions
-    ["/test"] = test,
 }
 
 

@@ -14,6 +14,7 @@ local ngx_var = ngx.var
 local ipairs = ipairs
 local tonumber = tonumber
 local common_cache = cache.get_common_cache()
+local ngx_say = ngx.say
 
 
 local _M = {}
@@ -55,6 +56,8 @@ _M.content = function()
     -- 如果数据没过期, 使用缓存数据响应用户
     response.cache_say(fqdn, get_resp_data)
     ]==]
+
+    response.say_ok({foo="This is example_api1"})
 end
 
 

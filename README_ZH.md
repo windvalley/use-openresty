@@ -164,6 +164,18 @@ location /static/ {
 
 `openresty -p /yourpath/use-openresty -c conf/nginx.conf`
 
+### 测试效果
+
+http://localhost/
+
+http://localhost/static/test.html
+
+http://localhost/test
+
+http://localhost/v1/app1/examples
+
+http://localhost/v1/app1/examples/1
+
 ## 授权许可
 
 本项目采用`MIT`开源授权许可证, 完整的授权说明已放置在[LICENSE](LICENSE)文件中.

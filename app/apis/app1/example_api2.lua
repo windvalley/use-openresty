@@ -25,7 +25,7 @@ end
 
 
 _M.content = function()
-
+    response.say_ok({"This is example_api2"})
 end
 
 
