@@ -4,17 +4,17 @@
 
 ## 主要特性
 
-* 不同于大多数其他`OpenResty Web`框架只利用`OpenResty`的`Content`执行阶段,
+- 不同于大多数其他`OpenResty Web`框架只利用`OpenResty`的`Content`执行阶段,
   使用本框架开发的每一个业务`API`都可以使用各自希望用到的`OpenResty`执行阶段.
-* 简易的路由配置, 路由配置从`nginx.conf`文件中分离出来, 并自动重定向去除请求的尾部`/`.
-* 封装常用的数据库调用模型: `Redis`、`MySQL`、`InfluxDB`、`OrientDB`.
-* 封装`mlcache`三级缓存(`lrucache->sharedict->callback`),
+- 简易的路由配置, 路由配置从`nginx.conf`文件中分离出来, 并自动重定向去除请求的尾部`/`.
+- 封装常用的数据库调用模型: `Redis`、`MySQL`、`InfluxDB`、`OrientDB`.
+- 封装`mlcache`三级缓存(`lrucache->sharedict->callback`),
   方便对响应数据或过程碎片数据进行缓存.
-* 集成基础的`waf`功能: 白名单、请求方法过滤、请求并发数限制等.
-* 支持热更新, 当`*.conf`或`*.lua`文件有变化时, 会自动对`OpenResty`进行reload.
-* 侵入式框架, 建议直接作为项目根目录使用, 充分利用框架提供的代码.
-* 可快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
-* 适用于编写高性能高并发的中小型`Web API`项目.
+- 集成基础的`waf`功能: 白名单、请求方法过滤、请求并发数限制等.
+- 支持热更新, 当`*.conf`或`*.lua`文件有变化时, 会自动对`OpenResty`进行 reload.
+- 侵入式框架, 建议直接作为项目根目录使用, 充分利用框架提供的代码.
+- 可快速开始新的项目逻辑编写, 做到不写重复代码, 快速地交付高性能高质量的应用.
+- 适用于编写高性能高并发的中小型`Web API`项目.
 
 ## 架构解析
 
@@ -22,7 +22,7 @@
 
 `tree -L 1 use-openresty`
 
-```txt
+```text
 use-openresty
 ├── README.md
 ├── app  # 具体应用的Lua代码所在目录, MVC结构Web API框架
@@ -41,29 +41,29 @@ use-openresty
 
 `tree app`
 
-```txt
+```text
 app
-├── apis  # 业务API目录, MVC中的C. 每一个业务API都可以设置各自需要的OR执行阶段.
+├── apis  # 业务API目录, MVC中的C, 每一个业务API都可以写各自需要的OpenResty执行阶段
 │   ├── app1
-|       ├── example_api1.lua  # 某一个应用的业务API文件.
+|       ├── example_api1.lua  # 某一个应用的业务API文件
 |       ...
 │   ├── ...
-├── config.lua  # 应用的全局配置文件.
-├── cache.lua  # 缓存模块, 便捷的对数据进行缓存.
-├── main.lua  # 整个应用的入口文件.
-├── models  # 模型, 获取后端数据, MVC中的M.
-│   ├── influxdb  # InfluxDB模型模块所在目录.
-│   ├── influxdb.lua  # InfluxDB HTTP API驱动.
+├── config.lua  # 应用的全局配置文件
+├── cache.lua  # 缓存模块, 便捷的对数据进行缓存
+├── main.lua  # 整个应用的入口文件
+├── models  # 模型, 获取后端数据, MVC中的M
+│   ├── influxdb  # InfluxDB模型模块所在目录
+│   ├── influxdb.lua  # InfluxDB HTTP API驱动
 │   ├── mysql
-│   ├── mysql.lua  # 对官方resty.mysql的封装.
+│   ├── mysql.lua  # 对官方resty.mysql的封装
 │   ├── orientdb
-│   ├── orientdb.lua  # OrientDB HTTP API驱动.
-│   └── redis.lua  # 对官方resty.redis的封装.
-├── response.lua  # 响应模块, 模块化响应的输出格式.
-├── router.⇵lua  # 路由模块, 配置urlpath和业务api的对应关系.
-├── views  # MVC中的V, 这里用于测试API json数据的展示效果.
+│   ├── orientdb.lua  # OrientDB HTTP API驱动
+│   └── redis.lua  # 对官方resty.redis的封装
+├── response.lua  # 响应模块, 模块化响应的输出格式
+├── router.lua  # 路由模块, 配置url path和业务api的对应关系
+├── views  # MVC中的V, 这里主要用于测试api响应的json数据在html中的渲染效果
 │   └── tree-graph.html
-└── waf.lua  # 应用的简易防火墙.
+└── waf.lua  # 应用的简易防火墙
 ```
 
 > 通过了解该简易`Web API`框架的各个组成部分,
@@ -71,7 +71,7 @@ app
 
 ### 简易架构图
 
-```txt
+```text
                   Users
                     ⇵
            --------------------
@@ -97,9 +97,9 @@ app
 
 ## 配置
 
-`conf/nginx.conf`的配置.
+下面说明下`conf/nginx.conf`中的关键配置.
 
-### Lua模块的搜索顺序
+### Lua 模块的搜索顺序
 
 `require Lua模块`时的目录查找顺序, 见`nginx.conf`配置文件中的如下这段:
 
@@ -120,7 +120,7 @@ init_by_lua_block {
 
 应用自身`Lua`模块>自定义`Lua`库模块>第三方`Lua`模块>官方`Lua`模块.
 
-## location配置
+## location 配置
 
 我们开发的业务`API`用到了多少执行阶段就在这里写多少:
 
@@ -148,7 +148,7 @@ location /static/ {
 }
 ```
 
-## 开发Web API
+## 开发 Web API
 
 在这里配置路由: `app/router.lua`
 

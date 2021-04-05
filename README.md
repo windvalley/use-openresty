@@ -6,15 +6,15 @@
 
 ## Features
 
-* Unlike most other OpenResty Web frameworks that only use the content execution phase of OpenResty, every business API developed using this framework can use the OpenResty execution phase that they want to use.
-* Simple routing configuration, will automatically redirect to remove the tail of the request `/`.
-* Wraps common database models: `Redis`, `MySQL`, `InfluxDB`, `OrientDB`.
-* Wrapping `mlcache` three-level cache (`lrucache->sharedict->callback`) to facilitate caching of response data or process fragment data.
-* Integrate basic `waf` functions: whitelist, request method filtering, request concurrency limit, etc.
-* Support live reload, when the `*.conf` or `*.lua` file changes, it will automatically reload the `OpenResty`.
-* Intrusive framework, recommended to be used directly as the root directory of the project, taking full advantage of the code provided by the framework.
-* You can quickly start writing new project logic, so as not to write duplicate codes, and quickly deliver high-performance and high-quality applications.
-* Suitable for writing high-performance and high-concurrency small and medium-sized `Web API` projects.
+- Unlike most other OpenResty Web frameworks that only use the content execution phase of OpenResty, every business API developed using this framework can use the OpenResty execution phase that they want to use.
+- Simple routing configuration, will automatically redirect to remove the tail of the request `/`.
+- Wraps common database models: `Redis`, `MySQL`, `InfluxDB`, `OrientDB`.
+- Wrapping `mlcache` three-level cache (`lrucache->sharedict->callback`) to facilitate caching of response data or process fragment data.
+- Integrate basic `waf` functions: whitelist, request method filtering, request concurrency limit, etc.
+- Support live reload, when the `*.conf` or `*.lua` file changes, it will automatically reload the `OpenResty`.
+- Intrusive framework, recommended to be used directly as the root directory of the project, taking full advantage of the code provided by the framework.
+- You can quickly start writing new project logic, so as not to write duplicate codes, and quickly deliver high-performance and high-quality applications.
+- Suitable for writing high-performance and high-concurrency small and medium-sized `Web API` projects.
 
 ## Architecture
 
@@ -22,7 +22,7 @@
 
 `tree -L 1 use-openresty`
 
-```txt
+```text
 use-openresty
 ├── README.md
 ├── app  # Application-specific Lua code directory, MVC architecture Web API framework
@@ -40,9 +40,9 @@ use-openresty
 
 `tree app`
 
-```txt
+```text
 app
-├── apis  # In the Web API directory, each API can set its own required OR execution phase
+├── apis  # In the Web API directory, each API can set its own required OpenResty execution phase
 │   ├── app1
 |       ├── example_api1.lua  # An API file of a specific application
 |       ...
@@ -69,7 +69,7 @@ app
 
 ### Simple arch map
 
-```txt
+```text
                   Users
                     ⇵
            --------------------
